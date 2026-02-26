@@ -7,10 +7,10 @@ Route::get('/', function () {
 });
 
 // Placeholder routes for navigation - will be replaced by Livewire page components in later phases
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'active'])->group(function () {
     Route::view('/dashboard', 'welcome')->name('dashboard.index');
-    Route::view('/kanban', 'welcome')->name('kanban.index');
-    Route::view('/team', 'welcome')->name('team.index');
+    Route::livewire('/kanban', 'pages::kanban.index')->name('kanban.index');
+    Route::livewire('/team', 'pages::team.index')->name('team.index');
     Route::view('/settings', 'welcome')->name('settings.index');
 
     Route::post('/logout', function () {
@@ -22,8 +22,10 @@ Route::middleware('auth')->group(function () {
     })->name('logout');
 });
 
-// Guest routes - will be replaced by Livewire page components
 Route::middleware('guest')->group(function () {
-    Route::view('/login', 'welcome')->name('login');
-    Route::view('/register', 'welcome')->name('register');
+    Route::livewire('/login', 'pages::auth.login')->name('login');
+    Route::livewire('/register', 'pages::auth.register')->name('register');
+    Route::livewire('/register/invite/{token}', 'pages::auth.register-invited')->name('register.invited');
+    Route::livewire('/forgot-password', 'pages::auth.forgot-password')->name('password.request');
+    Route::livewire('/reset-password/{token}', 'pages::auth.reset-password')->name('password.reset');
 });

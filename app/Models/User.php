@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invitation::class, 'invited_by_user_id');
     }
+
+    public function isBusinessOwner(): bool
+    {
+        return $this->role->name === 'Business Owner';
+    }
+
+    public function isSalesperson(): bool
+    {
+        return $this->role->name === 'Salesperson';
+    }
 }

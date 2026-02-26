@@ -18,6 +18,18 @@
         {{-- Left: Form area --}}
         <div class="flex w-full flex-col justify-center px-8 py-12 lg:w-1/2 lg:px-20">
             <div class="mx-auto w-full max-w-md">
+                @session('success')
+                    <div class="mb-4 rounded-lg bg-secondary-green/10 px-4 py-3 text-sm text-secondary-green">
+                        {{ $value }}
+                    </div>
+                @endsession
+
+                @session('error')
+                    <div class="mb-4 rounded-lg bg-secondary-red/10 px-4 py-3 text-sm text-secondary-red">
+                        {{ $value }}
+                    </div>
+                @endsession
+
                 {{ $slot }}
             </div>
         </div>
